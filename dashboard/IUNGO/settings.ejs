@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" href="/assets/css/owl.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+    <div class="overlay"></div>
+    <%- include("partials/header", { bot, user, path, title: profile.name }) %>
+
+    <% var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      
+        // These options are needed to round to whole numbers if that's what you want.
+        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+      }); %>
+
+    <meta content="<%= profile.name%>'s User Profile" property="og:title">
+    <meta content="Balance: <%=formatter.format(profile.bal) %> Level: <%= profile.levels.level %>" property="og:description">
+    <meta content="https://iungobot.net/" property="og:url">
+    <meta content="http://iungobot.net/assets/images/logo/logo.png" property="og:image">
+    <meta content="#5d369d" data-react-helmet="true" name="theme-color">
+
+    <section class="page-header bg_img" data-background="/assets/images/page-header.png">
+        <div class="bottom-shape d-none d-md-block">
+            <img src="/assets/css/img/page-header.png" alt="css">
+        </div>
+        <div class="container">
+            <div class="page-header-content cl-white">
+            </div>
+        </div>
+        <div class="section-header">
+            <h2 class="title"><%= profile.name %></h2>
+            <p>This is a publicly available user profile. All data contained in this article is public and free to access.
+                Please contact support@iungobot.net via email to request data removal or editing.
+            </p>
+            <% if (!user) { %> <%} else { %>
+                <% if(admins.includes(user.id)) { %>
+                    <a href="/staff/<%= profile.id %>/profile" class="button-4" > ADMIN </a>
+                  <% }  %>
+            <%} %>
+        </div>
+    </section>      
+    <section class="history-section padding-top padding-bottom-2">
+        <div class="container">
+            
+            <div class="history-slider owl-theme owl-carousel">
+            </div>
+        </div>
+    </section>
+    <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mb-70 mb-lg-0">
+                    <article>
+                        <div class="post-details">
+                            <div class="post-inner">
+                                <div class="post-header">
+                                    <div class="meta-post">
+                                        <a href="https://peepyllama.net/" class="read">Profile Views:</a>
+                                        <a href="https://iungobot.net/" class="read"><%= visits %></a>
+                                    </div>
+                                    
+                                        <% if (profile.staff) { %>
+                                            <h3 style="color: rgb(255, 240, 24)"class="title">
+                                        <%= profile.name %> <% if (user) { if (profile.id == user.id) { %> (you) <% }} %>
+                                        <% } else { %>
+                                            <h3 class="title">
+                                        <%= profile.name %> <% if (user) { if (profile.id == user.id) { %> (you) <% }} %>
+                                        <% }%>
+                                    </h3>
+                                </div>
+                                <div class="post-content">
+                                    </div>
+                                    <div class="entry-content">
+                                        <div class="feature-item">
+                                            <div class="feature-content">
+                                                <h4 style="color:rgb(19, 199, 3)"class="title">Balance</h4>
+                                                <p><%= formatter.format(profile.bal) %></p>
+                                            </div>
+                                        </div>
+
+                                        <% if (profile.passive){
+                                            var passiveVal = "Passive Enabled"
+                                        } else {
+                                            var passiveVal = "Passive Disabled"
+                                        } %>
+
+                                        <div class="feature-item">
+                                            
+                                            <div class="feature-content">
+                                                <h4 style="color:rgb(196, 52, 209)"class="title">Passive Mode?</h4>
+                                                <p><%= passiveVal %></p>
+                                            </div>
+                                        </div>
+
+                                        <% if (profile.staff) { %>
+                                            <div style="background-image: url('/assets/css/img/feature-bg.png');" class="feature-item">
+                                                <div  class="feature-content">
+                                                    <h4 style="color:rgb(219, 243, 0)"class="title">Staff?</h4>
+                                                    <p style="font-weight: bold; color:rgb(219, 243, 0)">Peepy Staff</p>
+                                                </div>
+                                            </div>
+                                        <% } %>
+
+                                        <div class="help-item">
+                                            <div class="help-content">
+                                                <h5 class="title">Level: <%= profile.levels.level %></h5>
+                                                <p>Exp: <%= profile.levels.xp %></p>
+                                            </div>
+                                        </div>
+                                        <h3 class="title">Recent Commands </h3>
+                                        <% if (profile.cooldown) { %>
+                                            <% Object.keys(profile.cooldown).forEach(function(key) { %>
+                                                <% var timestamp = profile.cooldown[key].started %>
+                                                <%  var date = new Date(timestamp)%>
+                                                <%var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];%>
+                                                <%var dayOfWeek = days[date.getDay()]%>
+
+                                                <% var currentTime = new Date().getTime() %>
+                                                <% var ms = (profile.cooldown[key].ms + timestamp) - currentTime,
+                                                min = Math.floor((ms/1000/60) << 0)
+                                                let seconds = ms / 1000;
+                                                const hours = parseInt( seconds / 3600 );
+                                                seconds = seconds % 3600;
+                                                const minutes = parseInt( seconds / 60 );
+                                                ;%>
+                                                <% if ( minutes < 0 || hours < 0) { %>
+                                                    
+                                                    <% } else { %>
+
+                                                        <div class="help-item">
+                                                            <div class="help-content">
+                                                                <h5 class="title"><%= profile.cooldown[key].name %></h5>
+                                                                <p><%= dayOfWeek + " at "+ date.getHours()+
+                                                                    ":"+date.getMinutes()%></p>
+                                                                    <% if (hours == 0){ %>
+                                                                        <% if (minutes < 0) { %>
+                                                                            <% } else {%>
+                                                                        <p>Time left: <%= minutes + " Minutes" %></p>
+                                                                        <% } %>
+                                                                    <% } else if (minutes > 0) { %>
+                                                                        <p>Time left: <%= hours+" Hours "+minutes + " Minutes" %></p>
+                                                                        <% } %>
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+
+                                                    <% } %>
+                                                <% }); %>
+                                            <%}%>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-md-8 col-sm-10">
+                            <aside class="sticky-menu">
+                                <div class="widget widget-tags">
+                                    <h5 class="title">Trophies</h5>
+                                    <ul>
+
+                                    <% if (profile.trophy) { %>
+                                    <% Object.keys(profile.trophy).forEach(function(key) { %>
+                                        <li>
+                                            <a href="<%= profile.trophy[key].href %>"title="Awarded <%= profile.trophy[key].rewarded %>"><%= profile.trophy[key].name %></a>
+                                        </li>
+                        
+                                        <% }); %>
+                                    <%}%>
+                                    <% if (profile.staff) { %>
+                                        <li>
+                                            <a href="/staff" class="">
+                                                <i class="fas fa-user-shield" title="Peepy Staff"></i>
+                                            </a>
+                                        </li> <%}%>
+                                    </ul>
+                                </div>
+                                <div class="widget widget-post">
+                                    <h5 class="title">Pets</h5>
+                                    <div class="slider-nav">
+                                        <span class="widget-prev"><i class="fas fa-angle-left"></i></span>
+                                        <span class="widget-next active"><i class="fas fa-angle-right"></i></span>
+                                    </div>
+                                    <div class="widget-slider owl-carousel owl-theme">
+                                        <% if (profile.pets) { %>
+                                        <% Object.keys(profile.pets).forEach(function(key) { %>
+                                            <div class="item">
+                                                <div class="thumb">
+                                                    <a href="#0">
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h6 class="p-title">
+                                                        <a href="#0"></a>
+                                                    </h6>
+
+                                                    <div class="help-item">
+                                                        <div class="help-content">
+                                                            <h5 class="title">Name: <%= profile.pets[key].name %></h5>
+                                                            <p>Type: <%= profile.pets[key].type %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content">
+                                                    <h6 class="p-title">
+                                                        <a href="#0">Adoption: <%= profile.pets[key].adopted %></a>
+                                                    </h6>
+                                                    <div class="meta-post">
+                                                        <a href="#0" class="mr-4">Level: <%= profile.pets[key].level %></a>
+                                                        <a href="#0">EXP: <%= profile.pets[key].exp %></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %>
+                                            <%}%>
+                                    </div>
+                                </div>
+                                <div class="widget widget-categories">
+                                    <h5 class="title">Items</h5>
+                                    <ul>
+                                        <% Object.keys(profile.inv).forEach(key => { 
+                                            if (items.hasOwnProperty(key)) { %>
+                                                <li>
+                                                    <a href="#0">
+                                                        <span> <%= items[key][0].replaceAll('`', '') %> </span><span> <%= profile.inv[key].amount %> </span>
+                                                </a>
+                                            </li>
+                                            <% } else {
+                                            }
+                    
+                                        }); %> 
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
+
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/waypoints.js"></script>
+    <script src="/assets/js/nice-select.js"></script>
+    <script src="/assets/js/owl.min.js"></script>
+    <script src="/assets/js/counterup.min.js"></script>
+    <script src="/assets/js/paroller.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
+

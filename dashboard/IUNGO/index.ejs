@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Peepy Llama - Discord Bot</title>
+    <meta content="Peepy Llama | Home" property="og:title">
+    <meta content="A simple, intuitive and powerful bot that supports all server owners and members." property="og:description">
+    <meta content="https://iungobot.net/" property="og:url">
+    <meta content="http://iungobot.net/assets/images/logo/logo.png" property="og:image">
+    <meta content="#5d369d" data-react-helmet="true" name="theme-color">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" href="/assets/css/owl.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/assets/css/main.css?v=3.0.1">
+
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+</head>
+<% var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+          }); %>
+<body>
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+    <div class="overlay"></div>
+    <%- include("partials/header", { bot, user, path, title: "Home" }) %>
+    <section class="banner-13 pos-rel oh bg_img" data-background="/assets/images/banner/IUNGO.png">
+        <div class="banner-thumb-13 d-xl-block d-none">
+        </div>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-5">
+                    <div class="banner-thumb-13 d-none">
+                        <img src="/assets/images/banner/banner-13.png" alt="banner">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="counter-four-section padding-top pt-xl-0">
+        <div class="container">
+            <div class="counter-wrapper-4">
+                <div class="counter-area-4">
+                    <div class="counter-item-4">
+                        <div class="counter-thumb">
+                            <img src="/assets/images/counter/counter1.png" alt="counter">
+                        </div>
+                        <div class="counter-content">
+                            
+                            <h2 class="title"><span class="counter"><%= bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0) %></span></h2>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="counter-item-4">
+                        <div class="counter-thumb">
+                            <img src="/assets/images/counter/counter2.png" alt="counter">
+                        </div>
+                        <div class="counter-content">
+                            <%= %>
+                            <h2 class="title"><span class="counter"><%= bot.guilds.cache.size %></span></h2>
+                            <p>Servers</p>
+                        </div>
+                    </div>
+                    <div class="counter-item-4">
+                        <div class="counter-thumb">
+                            <img src="/assets/images/counter/counter3.png" alt="counter">
+                        </div>
+                        <div class="counter-content">
+                            <h2 class="title"><span class="counter"><%=  %></span></h2>
+                            <p>Web Visits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="partner-section padding-top padding-bottom oh">
+        <div class="container">
+            <div class="row justify-content-center mb-30-none">
+    
+                <% var pos = 0 %>
+                <% var posAll = 3 %>
+                <% Object.keys(leader).slice(0, 6).forEach(function(key) { %>
+                    <%  position = pos + 1
+                        pos = position
+                    %>
+                    <% if (position < 4){ %>
+                        <div class="col-lg-4 col-md-6 col-sm-10">
+                            <div class="review-item">
+                                <div class="review-content"> 
+                                    <% if (position == 1) { %>  
+                                    <img height="70" src="/assets/images/leaderboard/first.png" align="right">
+                                    <%}%>
+                                    <% if (position == 2) { %>  
+                                    <img height="70" src="/assets/images/leaderboard/second.png" align="right">
+                                    <%}%> 
+                                    <% if (position == 3) { %>  
+                                    <img height="70" src="/assets/images/leaderboard/third.png" align="right">
+                                    <%}%>  
+                                    <p><%= formatter.format(leader[key].data.bal) %></p>
+                                    <p>XP <%= leader[key].data.levels.xp %> Lvl <%= leader[key].data.levels.level %></p>
+                                </div> 
+                                <div class="review-thumb">
+                                    <div class="review-author-content">
+                                        <div class="left">
+                                            <h6 class="title"><a href="/user/<%= leader[key].data.id %>"><%= leader[key].data.name %></a></h6>
+                                        </div>
+                                        <div class="icon">
+                                            <% if (leader[key].data.staff) { %> 
+                                                <a href="/staff"><i class="fas fa-user-shield"title="Peepy Staff Member"></i></a>
+                                                <%} else {%>
+                                                    <a href="/user/<%= leader[key].data.id %>"></a>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                        
+                    <% }); %>
+                    <section class="sponsor-section padding-bottom">
+                        <div class="container">
+                            <div class="section-header mw-100">
+                                <h5 class="cate">HONORABLE MENTIONS</h5>
+                                <h2 class="title">Top 20</h2>
+                            </div>
+                            <div class="sponsor-slider-4 owl-theme owl-carousel">
+                    <% Object.keys(leader).slice(3, 17).forEach(function(key) { %>
+                        <%  position = posAll + 1
+                        posAll = position
+                    %>
+                                <div class="sponsor-thumb">
+                                    <div class="left">
+                                        <h6 class="title"><a href="/user/<%= leader[key].data.id %>"><%= leader[key].data.name %></a></h6>
+                                        <p>#<%= position %> <%= formatter.format(leader[key].data.bal) %></p>
+                                    </div>
+                                </div>
+                                
+                    <% }) %>
+                    
+                </div>
+            </div>
+        </section>
+            </div>
+        </div>
+    </section>
+    <section class="app-video-section padding-top-2 padding-bottom oh" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="app-video-thumb">
+                        <div class="rtl">
+                            <img src="/assets/images/feature/logo.png" alt="feature">
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="advance-feature-content">
+                        <div class="section-header left-style mb-olpo">
+                            <h5 class="cate">A brand new eco bot.</h5>
+                            <h2 class="title">Your server activity will never be the same!</h2>
+                            <p>We are here to listen. The Peepy Team are here to adapt, grow and learn.</p>
+                        </div>
+                        <div class="banner-button-group">
+                            <a href="https://discordapp.com/oauth2/authorize?client_id=830079199712247909&scope=bot&permissions=2146958847" class="button-4"target="_blank"> invite Peepy Llama </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="faq-section padding-top padding-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="faq-header">
+                        <h2 class="title">Frequently Asked Questions</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="faq-wrapper mb--38">
+                        <div class="faq-item">
+                            <div class="faq-thumb">
+                                <i class="flaticon-pdf"></i>
+                            </div>
+                            <div class="faq-content">
+                                <h4 class="title">What is the prefix to run commands?</h4>
+                                <p>
+                                    By default the command prefix is set to ( > ) when Peepy Llama is complete, this prefix will be dynamic! Meaning server owners may set their prefix to anything they wish!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-thumb">
+                                <i class="flaticon-pdf"></i>
+                            </div>
+                            <div class="faq-content">
+                                <h4 class="title">What features does Peepy Llama have?</h4>
+                                <p>
+                                    Peepy Llama has many features, all centred around money and inventory games.  
+                                </p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-thumb">
+                                <i class="flaticon-pdf"></i>
+                            </div>
+                            <div class="faq-content">
+                                <h4 class="title">How do I invite Peepy Llama to my server?</h4>
+                                <p>
+                                    Click this button to invite Peepy Llama to your server! 
+                                </p>
+                                <a href="https://discordapp.com/oauth2/authorize?client_id=569158661499518976&scope=bot&permissions=2146958847" class="button-4"target="_blank"> invite Peepy Llama </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include("partials/footer") %>
+    <!--============= Footer Section Ends Here =============-->
+
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/waypoints.js"></script>
+    <script src="/assets/js/nice-select.js"></script>
+    <script src="/assets/js/owl.min.js"></script>
+    <script src="/assets/js/counterup.min.js"></script>
+    <script src="/assets/js/paroller.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

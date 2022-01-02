@@ -1,0 +1,71 @@
+<section class="partner-section padding-top padding-bottom oh">
+    <div class="container">
+        <div class="row justify-content-center mb-30-none">
+
+            <% var pos = 0 %>
+            <% var posAll = 3 %>
+            <% Object.keys(leader).slice(0, 6).forEach(function(key) { %>
+                <%  position = pos + 1
+                    pos = position
+                %>
+                <% if (position < 4){ %>
+                    <div class="col-lg-4 col-md-6 col-sm-10">
+                        <div class="review-item">
+                            <div class="review-content"> 
+                                <% if (position == 1) { %>  
+                                <img height="70" src="/assets/images/Leaderboard/first.png" align="right">
+                                <%}%>
+                                <% if (position == 2) { %>  
+                                <img height="70" src="/assets/images/Leaderboard/second.png" align="right">
+                                <%}%> 
+                                <% if (position == 3) { %>  
+                                <img height="70" src="/assets/images/Leaderboard/third.png" align="right">
+                                <%}%>  
+                                <p><%= formatter.format(leader[key].data.bal) %></p>
+                                <p>XP <%= leader[key].data.levels.xp %> Lvl <%= leader[key].data.levels.level %></p>
+                            </div> 
+                            <div class="review-thumb">
+                                <div class="review-author-content">
+                                    <div class="left">
+                                        <h6 class="title"><a href="/user/<%= leader[key].data.id %>"><%= leader[key].data.name %></a></h6>
+                                    </div>
+                                    <div class="icon">
+                                        <% if (leader[key].data.staff) { %> 
+                                            <a href="/staff"><i class="fas fa-user-shield"title="Peepy Staff Member"></i></a>
+                                            <%} else {%>
+                                                <a href="/user/<%= leader[key].data.id %>"></a>
+                                                <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                    
+                <% }); %>
+                <section class="sponsor-section padding-bottom">
+                    <div class="container">
+                        <div class="section-header mw-100">
+                            <h5 class="cate">HONORABLE MENTIONS</h5>
+                            <h2 class="title">Top 20</h2>
+                        </div>
+                        <div class="sponsor-slider-4 owl-theme owl-carousel">
+                <% Object.keys(leader).slice(3, 17).forEach(function(key) { %>
+                    <%  position = posAll + 1
+                    posAll = position
+                %>
+                            <div class="sponsor-thumb">
+                                <div class="left">
+                                    <h6 class="title"><a href="/user/<%= leader[key].data.id %>"><%= leader[key].data.name %></a></h6>
+                                    <p>#<%= position %> <%= formatter.format(leader[key].data.bal) %></p>
+                                </div>
+                            </div>
+                            
+                <% }) %>
+                
+            </div>
+        </div>
+    </section>
+        </div>
+    </div>
+</section>

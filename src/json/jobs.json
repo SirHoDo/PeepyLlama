@@ -1,0 +1,5 @@
+{
+    "teacher": ["`Teacher`", "Educate the world... from zoom.", 3000, 60000],
+    "developer": ["`Developer`", "Develop some epic applications.", 15000, 600000],
+    "youtuber": ["`Youtuber`", "Produce viral YouTube vidoes", "???", 90000]
+}

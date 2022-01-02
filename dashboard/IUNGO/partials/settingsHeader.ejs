@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+  <% if (user) { %>
+    <!--============= Header Section Starts Here =============-->
+    <header class="header-section">
+      <div class="container">
+          <div class="header-wrapper">
+              <div class="logo">
+                  <a href="/">
+                      <img src="/assets/images/logo/logo.png" alt="logo">
+                  </a>
+              </div>
+              <ul class="menu">
+                  <li>
+                      <a href="/team">Team</a>
+                  </li>
+                  <li>
+                    <a href="/privacy">Privacy</a>
+                  </li>
+                  <li>
+                      <a href="/404">review</a>
+                  </li>
+                  <li>
+                      <a href="/404">contact</a>
+                  </li>
+              </ul>
+              <div class="header-bar d-lg-none">
+
+              </div>
+              <div class="header-right">
+                <a href="/dashboard" class="header-button d-none d-sm-inline-block"><span>DASHBOARD</span></a>
+                <a href="/logout" class="header-button d-none d-sm-inline-block"><span>LOGOUT</span></a>
+                  <!--<a href="/logout" class="header-button d-none d-sm-inline-block"target="_blank">LOGOUT</a>-->
+              </div>
+          </div>
+          
+      </div>
+  </header>
+  <!--============= Header Section Ends Here =============-->
+
+  <% } else { %>
+        <!--============= Header Section Starts Here =============-->
+        <header class="header-section">
+          <div class="container">
+              <div class="header-wrapper">
+                  <div class="logo">
+                      <a href="/">
+                          <img src="/assets/images/logo/logo.png" alt="logo">
+                      </a>
+                  </div>
+                  <ul class="menu">
+                      <li>
+                          <a href="/team">Team</a>
+                      </li>
+                      <li>
+                        <a href="/privacy">Privacy</a>
+                      </li>
+                      <li>
+                          <a href="/404">review</a>
+                      </li>
+         
+              
+                      <li>
+                          <a href="/contact">contact</a>
+                      </li>
+                  </ul>
+                  <div class="header-bar d-lg-none">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                  </div>
+                  <div class="header-right">
+    
+                    <a href="/login" class="header-button d-none d-sm-inline-block"><span>login</span></a>
+                  </div>
+              </div>
+          </div>
+      </header>
+  <% } %>
+

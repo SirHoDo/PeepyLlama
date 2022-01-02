@@ -1,0 +1,147 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Peepy - Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" href="/assets/css/owl.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+    <div class="overlay"></div>
+    <%- include("partials/header", { bot, user, path, title: "Home" }) %>
+    <section class="partner-section padding-top padding-bottom oh">
+        <div class="container">
+            <div class="row justify-content-center mb-30-none">
+                <% if(!admins.includes(user.id)) { %>
+                    <div class="account-wrapper top-gap">
+                                <div class="account-body">
+                                    <div class="form-head">
+                                        <h4 class="title mb-20">STAFF ONLY</h4>
+                                        <p>Only Peepy staff may progress past this point. Try login or applying for the team!</p>
+                                    </div>
+                                    <form class="account-form">
+                                    
+                                        <div class="form-group text-center">
+                                            <a href="mailto:social@iungobot.net" class="button-4"target="_blank"> EMAIL US </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                  <% } else { %>
+    <section class="feature-section padding-top padding-bottom oh">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="section-header mw-100">
+                        
+                        <h2 class="title"><h1><%= profile.name %></h1></h2>
+                        <a href="/user/<%= profile.id %>/" class="button-4" > VISIT PROFILE </a>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs feature-tab-menu">
+                <li>
+                    <a href="/staff/<%= profile.id %>/profile" class="active">Profile</a>
+                </li>
+                <li>
+                    <a href="/staff/<%= profile.id %>/inventory">Inventory</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#integrations">...</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="collaboration">
+                    <div class="row justify-content-center justify-content-lg-between">
+                        <div class="col-lg-7">
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="contact-wrapper">
+                                <h4 class="title text-center mb-30">User Profile</h4>
+                                <form class="contact-form" id="contact_form_submit" method="POST"> 
+                                    <div class="form-group">
+                                    <label for="subject">Balance</label>
+                                    <input type="text" name="money" value="<%= profile.bal %>" maxlength = "10" placeholder="Money"> <br><br>
+                                    <label for="subject">Level</label>
+                                    <input type="text" name="level" value="<%= profile.levels.level %>" maxlength = "3" placeholder="Level"> <br><br>
+                                    <label for="subject">XP</label>
+                                    <input type="text" name="xp" value="<%= profile.levels.xp %>" maxlength = "6" placeholder="XP"> <br><br>
+                                    <label for="subject">Staff</label>
+                                    <select name="staff" value="staff">
+                                        <option value="true" name="staff" <% if (profile.staff) { %> selected <% } %>>TRUE</option>
+                                        <option value="false" name="staff" <% if (!profile.staff) { %> selected <% } %>>FALSE</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="SAVE EDITS">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="contact-content">
+                                <div class="man d-lg-block d-none">
+                                    <img src="/assets/images/profile/settings.png" alt="bg">
+                                </div>
+                                <div class="section-header left-style">
+                                    <% if (alert) { %>
+                                        <h3 class="title"><%= alert %></h3>
+                                        <% } else { %>
+                                            <h3 class="title">Click "SAVE EDITS" to save edits.</h3>
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-lg-4">
+                            <div class="contact-content">
+                                <div class="section-header left-style">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                  <% } %>
+            </div>
+        </div>
+    </section>
+    
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/waypoints.js"></script>
+    <script src="/assets/js/nice-select.js"></script>
+    <script src="/assets/js/owl.min.js"></script>
+    <script src="/assets/js/counterup.min.js"></script>
+    <script src="/assets/js/paroller.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
+

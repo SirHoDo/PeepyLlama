@@ -1,0 +1,103 @@
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <title>Peepy Llama - Trophy</title>
+    
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="stylesheet" href="/assets/css/animate.css">
+        <link rel="stylesheet" href="/assets/css/nice-select.css">
+        <link rel="stylesheet" href="/assets/css/owl.min.css">
+        <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/flaticon.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+        
+      
+    </head>
+    <%- include("partials/header", { bot, user, path, title: "Home" }) %>
+    <body>
+        <div class="preloader">
+            <div class="preloader-inner">
+                <div class="preloader-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+        <div class="overlay"></div>
+        <section class="page-header bg_img" data-background="/assets/images/page-header.png">
+            <div class="bottom-shape d-none d-md-block">
+                <img src="/assets/css/img/page-header.png" alt="css">
+            </div>
+            <div class="container">
+                <div class="page-header-content cl-white">
+                    <h2 class="title">TROPHY</h2>
+                </div>
+            </div>
+        </section>
+        <section class="trial-section">
+            <% var inv = trophy;
+            var dadata = ""
+            Object.keys(inv).forEach(key => {
+                if (trophy.hasOwnProperty(key)) { %>
+                    <div class="container">
+                        <div class="trial-wrapper padding-top padding-bottom bg_img style-two" data-background="./assets/images/bg/trial.png">
+                            <div class="trial-content">
+                                <h3 class="title"><%= trophy[key][0].replaceAll('`', '') %></h3>
+                                <p>
+                                    <%= trophy[key][1] %>
+                                </p>
+                            </div>
+                            <div class="trial-button">
+                                <a href="https://discord.com/invite/wNng4rb" class="button-4"target="_blank"> Join IUNGO support</a>
+                            </div>
+                        </div>
+                    </div>
+                <% } else {
+                    dadata += `**${key}** - \`${inv[key].amount}\`\n*Unknown Description...*\n\n`
+                }
+
+            }); %>
+        </section>
+        <section class="partner-section padding-top padding-bottom oh">
+            <div class="container">
+                <div class="row justify-content-center mb-30-none">
+
+                </div>
+            </div>
+        </section>
+        <%- include("partials/footer") %>
+        <script src="/assets/js/jquery-3.3.1.min.js"></script>
+        <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+        <script src="/assets/js/plugins.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/magnific-popup.min.js"></script>
+        <script src="/assets/js/jquery-ui.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/waypoints.js"></script>
+        <script src="/assets/js/nice-select.js"></script>
+        <script src="/assets/js/owl.min.js"></script>
+        <script src="/assets/js/counterup.min.js"></script>
+        <script src="/assets/js/paroller.js"></script>
+        <script src="/assets/js/main.js"></script>
+    
+    
+    </body>
+    
+    </html>
+    
+    

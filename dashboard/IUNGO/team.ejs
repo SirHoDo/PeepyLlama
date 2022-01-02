@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Peepy Llama - Staff</title>
+
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="stylesheet" href="/assets/css/nice-select.css">
+  <link rel="stylesheet" href="/assets/css/owl.min.css">
+  <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/css/flaticon.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+  <style>
+
+  </style>
+
+</head>
+<%- include("partials/header", { bot, user, path, title: "Home" }) %>
+
+  <body>
+    <div class="preloader">
+      <div class="preloader-inner">
+        <div class="preloader-icon">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+    <div class="overlay"></div>
+
+    <section class="team-section padding-top padding-bottom oh">
+      <div class="container">
+        <div class="section-header">
+          <h5 class="cate">Meet our most valued</h5>
+          <h2 class="title">Team Members</h2>
+          <p>
+            Our team of creative developers, designers and marketing experts. Doing what we love.
+          </p>
+        </div>
+        <div class="container">
+          <div class="row">
+            <% Object.keys(leader).forEach(function(key) {
+              if (leader[key].data.staff) {
+                 %>
+                <div class="col-sm-6 col-md-4">
+                  <div class="div-box">
+                    <div class="User-img">
+                      <img src="<%=  %>">
+                    </div>
+                    <h3 class="User-name">
+                      <%= leader[key].data.name %>
+                    </h3>
+                    <h4 class="designation">
+                      <%= leader[key].data.staff.role %>
+                    </h4>
+                    <div class="profile-details">
+                      <ul>
+                        <div class="account-header pb-0">
+                          <% if (leader[key].data.staff.links) { %><a href="<%= leader[key].data.staff.links %>"
+                              class="button-4" target="_blank"> WEBSITE </a>
+                            <% } else { %>
+                              <a href="/user/<%= leader[key].data.id %>" class="button-4" target="_blank"> PROFILE </a>
+                              <% }%>
+                                <span class="d-block mb-30 mt-2"></span>
+                        </div>
+                        <li></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <%} %>
+                  <% }) %>
+
+
+                    <div class="col-sm-6 col-md-4">
+                      <div class="div-box">
+                        <div class="User-img">
+                          <img src="/assets/images/team/openspot.png">
+                        </div>
+                        <h3 class="User-name">APPLY TODAY</h3>
+                        <h4 class="designation">APPLY NOW</h4>
+                        <div class="profile-details">
+                          <ul>
+                            <div class="account-header pb-0">
+                              <a href="mailto:social@iungobot.net" class="button-4" target="_blank"> CONTACT </a>
+                              <span class="d-block mb-30 mt-2"></span>
+                            </div>
+                            <li></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    </head>
+
+    <body>
+
+
+    </body>
+
+</html>
+<section class="partner-section padding-top padding-bottom oh">
+  <div class="container">
+    <div class="row justify-content-center mb-30-none">
+
+    </div>
+  </div>
+</section>
+<div class="padding-bottom get-started-section">
+  <div class="custom-plan oh">
+    <div class="container">
+      <div class="custom-wrapper">
+        <div class="custom-area pt-20 pb-20">
+          <div class="section-header cl-white pb-20">
+            <h3 class="title">Join the IUNGO team today!</h3>
+          </div>
+          <div class="app-button-group justify-content-center">
+            <div class="banner-button-group">
+              <a href="/" class="button-4" target="_blank"> More info </a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include("partials/footer") %>
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/waypoints.js"></script>
+    <script src="/assets/js/nice-select.js"></script>
+    <script src="/assets/js/owl.min.js"></script>
+    <script src="/assets/js/counterup.min.js"></script>
+    <script src="/assets/js/paroller.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+
+    </body>
+
+    </html>

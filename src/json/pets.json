@@ -1,0 +1,6 @@
+{
+    "dog": ["`Dog`", "A loyal K9 friend 🐶", 5000],
+    "cat": ["`Cat`", "A cute little kitten 🐱", 5000],
+    "llama": ["`Llama`", "A lucky llama", 11000],
+    "peepyllama": ["`PeepyLlama`", "**Magical peeping llama**", 425000]
+}

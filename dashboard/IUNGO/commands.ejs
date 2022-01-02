@@ -1,0 +1,130 @@
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <title>Peepy Llama - Staff</title>
+    
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/all.min.css">
+        <link rel="stylesheet" href="/assets/css/animate.css">
+        <link rel="stylesheet" href="/assets/css/nice-select.css">
+        <link rel="stylesheet" href="/assets/css/owl.min.css">
+        <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/flaticon.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+        
+      
+    </head>
+    <%- include("partials/header", { bot, user, path, title: "Home" }) %>
+    <body>
+        <div class="preloader">
+            <div class="preloader-inner">
+                <div class="preloader-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+        <div class="overlay"></div>
+        <section class="page-header bg_img" data-background="/assets/images/page-header.png">
+            <div class="bottom-shape d-none d-md-block">
+                <img src="/assets/css/img/page-header.png" alt="css">
+            </div>
+            <div class="container">
+                <div class="page-header-content cl-white">
+                    <h2 class="title">COMMANDS</h2>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="blog-section padding-top padding-bottom">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <article class="mb-40-none">
+
+                            <% categories.forEach(category => { %>
+                                <div class="post-item style-two">
+                                    <div class="post-thumb">
+                                        <a ><img src="/assets/images/commands/<%= category.id %>.png" alt="blog"></a>
+                                    </div>
+                                    <div class="post-content">
+                                        <h3 class="title">
+                                            <a><%= category.id %> </a>
+                                        </h3>
+                                        <p><%= categories.get(category.id).desc %></p>
+
+                                        <% 
+                                        var arr = []
+                                        categories.get(category.id).commands.forEach(command => {
+                                            if(command.props.hasOwnProperty("hidden")) {
+                                                if(!command.props.hidden) arr[arr.length] = command.props.name
+                                            } else {
+                                                arr[arr.length] = command.props.name
+                                            }    
+                                           }) 
+                                           %>
+
+                                        <a class="read"><%= arr.join(", ") %></a>
+                                    </div>
+                                </div>
+                            <% });  %>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 col-md-8 col-sm-10">
+                        <aside class="sticky-menu">
+                            <div class="widget widget-search">
+                                <h5 class="title">search</h5>
+                                <form class="search-form">
+                                    <input type="text" placeholder="Enter your Search Content" required>
+                                    <button type="submit"><i class="flaticon-loupe"></i>Search</button>
+                                </form>
+                            </div>
+                            
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="partner-section padding-top padding-bottom oh">
+            <div class="container">
+                <div class="row justify-content-center mb-30-none">
+
+                </div>
+            </div>
+        </section>
+        <%- include("partials/footer") %>
+        <script src="/assets/js/jquery-3.3.1.min.js"></script>
+        <script src="/assets/js/modernizr-3.6.0.min.js"></script>
+        <script src="/assets/js/plugins.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/magnific-popup.min.js"></script>
+        <script src="/assets/js/jquery-ui.min.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/waypoints.js"></script>
+        <script src="/assets/js/nice-select.js"></script>
+        <script src="/assets/js/owl.min.js"></script>
+        <script src="/assets/js/counterup.min.js"></script>
+        <script src="/assets/js/paroller.js"></script>
+        <script src="/assets/js/main.js"></script>
+    
+    
+    </body>
+    
+    </html>
+    
+    
