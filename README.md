@@ -6,7 +6,7 @@
 [![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https://iungo.info%2F)](https://iungo.info/)
 
 [![Built with Discord.JS][builtwithdjs-badge]][builtwithdjs]
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SirHoDo_RocketTrades&metric=ncloc)](https://sonarcloud.io/dashboard?id=SirHoDo_RocketTrades)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SirHoDo_PeepyLlama&metric=ncloc)](https://sonarcloud.io/dashboard?id=SirHoDo_PeepyLlama)
 
 
 **RocketTrades**, Discord Charts and Stocks bot.
