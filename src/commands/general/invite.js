@@ -27,7 +27,7 @@ module.exports = new simpleCommand(async(message, args, client, addCD) => {
     
 }, {
     name: "invite",
-    cooldown: 1.8e+6,
+    cooldown: 0,
     aliases: ["invite", "join"],
     description: "Invite the bot to your server",
     usage: "{prefix}{cmd}"

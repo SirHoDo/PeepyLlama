@@ -1,9 +1,10 @@
 const simpleCommand = require("../../core/simpleCommand");
 const Discord = require("discord.js")
 const { MessageActionRow, MessageButton } = require('discord.js');
+const config = require('../../config');
 
 
-var prefix = ">"
+var prefix = config.prefix
 module.exports = new simpleCommand(
         async(message, args, client, addCD) => {
             if (!args[0]) {
@@ -24,8 +25,8 @@ module.exports = new simpleCommand(
                     .setColor('#5d369d')
                     .setAuthor("Available Categories", botIcon)
                     .setDescription([
-                        ("**Prefix:** \`>\` (Custom Prefix coming soon!)"),
-                        ('**Type** \`>help [command]\` **for command specific information.**\n\n'),
+                        (`**Prefix:** \`${prefix}\` (Custom Prefix coming soon!)`),
+                        (`**Type** \`${prefix}help [command]\` **for command specific information.**\n\n`),
                         (home),
                     ].join('\n'));
                     
@@ -48,8 +49,8 @@ module.exports = new simpleCommand(
                     .setColor('#5d369d')
                     .setAuthor("Available Commands", botIcon)
                     .setDescription([
-                        ("**Prefix:** \`>\` (Custom Prefix coming soon!)"),
-                        ('**Type** \`>help [command]\` **for command specific information.**\n\n'),
+                        (`**Prefix:** \`${prefix}\` (Custom Prefix coming soon!)`),
+                        (`**Type** \`${prefix}help [command]\` **for command specific information.**\n\n`),
                         (desc),
                     ].join('\n'));
 

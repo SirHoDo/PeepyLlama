@@ -1,11 +1,9 @@
 const Discord = require("discord.js")
-
 var commands = new Discord.Collection();
 
 const api = require("./api");
 const config = require("../config.js");
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { owners } = require("../../package.json")
 
 function isAO(str) {
     try {
@@ -19,7 +17,7 @@ function isAO(str) {
     }
 }
 module.exports = async(message, client) => {
-    var prefix = ">"
+    var prefix = config.prefix
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();

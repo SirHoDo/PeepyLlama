@@ -1,5 +1,5 @@
-
 const api = require('../../core/api'),
+Discord = require('discord.js');
 messagecli = require('../../core/messagecli'),
 config = require('../../config.js'),
 Event = require('../../structures/Event');
@@ -37,12 +37,13 @@ class MessageCreate extends Event {
         if (message.content == `<@!${client.user.id}>`) {
             api.numOfUsers()
             .then((count) => {
-    
-                const embed = new MessageEmbed()
+
+                var prefix = config.prefix
+                const embed = new Discord.MessageEmbed()
                     .setColor('#5d369d')
                     .setTitle(`Hey, ${message.author.username}#${message.author.discriminator}`);
                     embed.setDescription([
-                        `Default Prefix: \`>\``,
+                        `Default Prefix: \`${prefix}\``,
                         `Unique Users: \`${api.numberWithCommas(count)}\``
                         ].join('\n'))
                     .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png?size=256`)
@@ -68,7 +69,7 @@ class MessageCreate extends Event {
                             api.numOfUsers()
                                 .then((count) => {
     
-                                    const embed = new MessageEmbed()
+                                    const embed = new Discord.MessageEmbed()
                                     .setColor('#5d369d')
                                     .setTitle(`[NEW PROFILE] ${message.author.username}#${message.author.discriminator}`);
                                      embed.setDescription([
@@ -78,9 +79,9 @@ class MessageCreate extends Event {
                                     `Unique User: ${api.numberWithCommas(count)}${api.ordinal_suffix(count)}`
                                      ].join('\n'))
                                      .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png?size=256`)
+                                     console.log("New account")
                                      
-                                     
-                                     client.channels.cache.get('891642479487647806').send({embeds: [embed]});
+                                     client.channels.cache.get(config.SupportServer.GuildChannel).send({embeds: [embed]});
     
     
                                     api.log(`**NEW USER!** Welcome to Peepy Llama bot, **${message.author.username}**! They are our \`${api.numberWithCommas(count)}${api.ordinal_suffix(count)} user!\``, client)

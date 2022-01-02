@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js'),
-Event = require('../../structures/Event');
+Event = require('../../structures/Event'),
+config = require('../../config');
 
 /**
  * Ready event
@@ -32,7 +33,7 @@ class guildDelete extends Event {
 			`MemberCount: ${guild.memberCount ?? 'undefined'}`,
 		].join('\n'));
     console.log("Joined a new guild: " + guild.name);
-    client.channels.cache.get('891642479487647806').send({embeds: [embed]});
+    client.channels.cache.get(config.GuildChannel).send({embeds: [embed]});
     console.log("Left a guild: " + guild.name);
 	}
 }

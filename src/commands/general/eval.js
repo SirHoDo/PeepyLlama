@@ -25,6 +25,7 @@ module.exports = new simpleCommand(
 
     }, {
         name: "eval",
+        hidden: true,
         aliases: ["eval"],
         cooldown: 0,
         cooldownMessage: "mmm",
