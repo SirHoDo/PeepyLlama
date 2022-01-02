@@ -240,7 +240,7 @@ module.exports = async (client, args) => {
     )
     .setTimestamp()
   
-    client.channels.cache.get('891642479487647806').send({ embeds: [exampleEmbed] });
+    client.channels.cache.get(config.GuildChannel).send({ embeds: [exampleEmbed] });
 
     renderTemplate(res, req, "adminedit.ejs", { admins, guild, profile: storedSettings, alert: "Your settings have been saved." });
   });
