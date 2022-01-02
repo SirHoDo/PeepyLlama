@@ -9,10 +9,16 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=SirHoDo_PeepyLlama&metric=ncloc)](https://sonarcloud.io/dashboard?id=SirHoDo_PeepyLlama)
 
 
-**RocketTrades**, Discord Charts and Stocks bot.
+**PeepyLlama**, Discord Economy Bot an with extensive online user dashboard and administrative panel.
 
-MORE DETAILS AND UPDATES TO COME SOON<br />
+```sh 
+DASHBOARD CSS, SCRIPTS AND IMAGES HAS BEEN STRIPPED BACK TO AVOID COMPLETE COPIES OF THE ORIGIONAL WEBSITE # HTTPS://PEEPY.INFO
 
+* While working as normal, this area is up to your own imagination and creativity to complete *
+```
+<br />
+
+[Features](#features) •
 [Getting started](#getting-started) •
 [Installation](#installation) •
 [Configuration](#configuration) •
@@ -20,14 +26,78 @@ MORE DETAILS AND UPDATES TO COME SOON<br />
 
 </div>
 
+## Features
+
+<br>
+
+```sh
+💸 Currency
+```
+| Command | Usage |
+| --- | --- |
+| Active | View the top most active bot users. You get more XP by typing in servers! |
+| Adopt | Adopt an available pet from the pet shop. |
+| Apply | Apply to work as any chosen occupation. |
+| Balance | Check a users balance. |
+| Baltop | Displays the global richest players. |
+| Beg | Ask some strangers for spare change. |
+| Buy | Buy an available item from a list of purchasable items. |
+| Daily | Collect your daily bonus. |
+| Disown | Give your beloved pet up for adoption... |
+| Gift | Give another player an item that you own. |
+| Give | Pay some of your balance to another player. |
+| Inventory | Lift of items a user has in their inventory. |
+| Jobs | View full list of available work. |
+| Leaderboard | Displays current leaderboard types. |
+| Pet | Check statistics about your/another players pets. |
+| Petshop | List of all available pets to adopt. |
+| Rank | Shows your current level, XP and position on the rankings. |
+| Resign | Leave your job. |
+| Rob | Steal another players hard earned money. |
+| Sell | Sell an item from your inventory. |
+| Shop | Buy an item for your inventory. |
+| Shoutout | Shoutout another YouTuber (Requires YouTuber job) |
+| Use | If an item is useable, lets you use it. (Gift Boxes) |
+| Work | Do your job! |
+<br>
+
+```sh
+🎲 Games
+```
+| Command | Usage |
+| --- | --- |
+| Connect4 | Play a game of connect 4 against an opponent. |
+| Doubleornothing | Test your luck, double... or loose the amount of money you bet.  |
+<br>
+
+```sh
+General 
+```
+| Command | Usage |
+| --- | --- |
+| Eval | Execute JS code in chat (Bot Admin Only) |
+| Admin | Sends admin dashboard page to edit selected user profiles. |
+| Help | List of all commands. |
+| Invite | Send the bots invite URL as an embed to the chat. |
+| Passive | Enables Passive mode so the user cannot rob or be robbed. |
+| Profile | Send selected users website profile in chat. |
+
+<br>
+
+
 ## Getting started
 
 ```sh
 Visit Discord Portal         # https://discord.com/developers/applications/
 Create Application           # (New Application)
 
+OAuth2 Redirects             # (Add Redirect)
+Add Callback URL             # (http://localhost:3039/callback OR http://URL/callback)
+
 Create Bot User              # (Bot -> Add Bot)
-Take not of bot info         # Token && Client ID (number in the URL)
+Take note of bot info         # Token && Client ID (number in the URL)
+
+Create MongoDB               # https://www.mongodb.com/free-cloud-database
 ```
 
 ## Installation
@@ -60,10 +130,12 @@ When calling `zoxide init`, the following flags are available:
     | `ownerID`   | Bot Owners User ID.      |
     | `token` | Token Obtained from Discord Developer portal.             |
     | `id`    | Bots Client ID Obtained from Discord Developer portal. |
+    | `secret`    | Secret for OAuth2 Redirects  |
     | `prefix`    | Bot Trigger Phrase.      *`example ($help)`* |
     | `websiteURL`    | Website URL *`(For Future reference)`* |
     | `embedColor`    | Color of all Embeds the bot will use. |
     | `debug`    | Debug mode, *`(true/false)`* |
+    | `MongoDBURl` | Required to create user accounts and store data |
         
 - `API`
   - Required for Statistics API
