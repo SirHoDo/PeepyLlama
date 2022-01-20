@@ -23,8 +23,6 @@ module.exports = (client) => {
 			memoryUsed: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
 			textChannels: client.channels.cache.filter(({ type }) => type === 'GUILD_TEXT').size,
 			voiceChannels: client.channels.cache.filter(({ type }) => type === 'GUILD_VOICE').size,
-			MessagesSeen: client.messagesSent,
-			CommandsRan: client.commandsUsed,
 			ping: Math.round(client.ws.ping),
 			accounts: data,
 			richest: richest

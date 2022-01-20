@@ -24,15 +24,7 @@ class MessageCreate extends Event {
 	 * @readonly
 	*/
 	async run(client, message) {
-        const botStats = await botStatsSchema.find()
-        await (botStatsSchema.findOneAndUpdate({
-			messagesSent: botStats[0].messagesSent + 1,
-            commandsUsed: botStats[0].commandsUsed
-		}, {new: true, useFindAndModify: false}))
-        
-        client.messagesSent = botStats[0].messagesSent + 1
-        client.messagesSent = botStats[0].commandsUsed 
-        
+
         if (message.author.bot) return;
         if (message.content == `<@!${client.user.id}>`) {
             api.numOfUsers()
