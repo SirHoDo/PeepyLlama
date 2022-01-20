@@ -119,17 +119,10 @@ module.exports = async (client, args) => {
   });
   app.get("/user", async (req, res) => {
 
-    var user = await api.getUser('456062221710131210')
-    user.userviews = user.userviews + 1
-    await api.modUser('456062221710131210', user)
-
     let baltop = await api.getAll()
     baltop.sort((a, b) => b.data.bal - a.data.bal);
-
     var position = 0
-
-    var views = user.userviews
-    renderTemplate(res, req, "user.ejs", { visits: views, leader: baltop, pos: position }, { perms: Discord.Permissions });
+    renderTemplate(res, req, "user.ejs", { leader: baltop, pos: position }, { perms: Discord.Permissions });
   });
   app.get("/user/:ID", async (req, res) => {
     var staffCheck = await api.getAll()
@@ -145,16 +138,8 @@ module.exports = async (client, args) => {
       .catch(() => {
         return res.redirect("/nouser");
       })
-    /* Users Visit Counter */
-    var user = await api.getUser(req.params.ID)
-    if (!user.profileViews) {
-      user.profileViews = 0
-      await api.modUser(req.params.ID, user)
-    }
-    user.profileViews = user.profileViews + 1
-    await api.modUser(req.params.ID, user)
-    var views = user.profileViews
-    renderTemplate(res, req, "settings.ejs", { items, admins, guild, profile: storedSettings, alert: null, visits: views });
+
+    renderTemplate(res, req, "settings.ejs", { items, admins, guild, profile: storedSettings, alert: null});
   });
 
   app.post("/user/:ID", async (req, res, addCD) => {
@@ -174,15 +159,7 @@ module.exports = async (client, args) => {
 
     await api.changeBal(req.params.ID, 5000).then(api.addCool(req.params.ID, 'daily', 30000))
 
-    var user = await api.getUser(req.params.ID)
-    if (!user.profileViews) {
-      user.profileViews = 0
-      await api.modUser(req.params.ID, user)
-    }
-    user.profileViews = user.profileViews + 1
-    await api.modUser(req.params.ID, user)
-    var views = user.profileViews
-    renderTemplate(res, req, "settings.ejs", { admins, guild, profile: storedSettings, alert: null, visits: views });
+    renderTemplate(res, req, "settings.ejs", { admins, guild, profile: storedSettings, alert: null});
   });
 
   app.get("/staff/:ID/profile", checkAuth, async (req, res) => {
