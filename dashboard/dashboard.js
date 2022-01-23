@@ -22,8 +22,10 @@ const app = express();
 const MemoryStore = require("memorystore")(session);
 
 module.exports = async (client, args) => {
+  const commands = client.commands
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
   const templateDir = path.resolve(`${dataDir}${path.sep}IUNGO`);
+
   passport.serializeUser((user, done) => done(null, user));
   passport.deserializeUser((obj, done) => done(null, obj));
   passport.use(new Strategy({
@@ -82,8 +84,9 @@ module.exports = async (client, args) => {
       const url = req.session.backURL;
       req.session.backURL = null;
       res.redirect(url);
+
     } else {
-      res.redirect("/");
+      res.redirect("/user/" + req.user.id);
     }
   });
   app.get("/logout", function (req, res) {
@@ -105,9 +108,28 @@ module.exports = async (client, args) => {
     renderTemplate(res, req, "404.ejs");
   });
   app.get("/commands", (req, res) => {
+
+    if (!req.query.search){ 
     var categories = client.categories
     renderTemplate(res, req, "commands.ejs", { categories });
+    } else {
+      res.redirect('/commands/' + req.query.search);
+    }
+    
   });
+
+  app.get("/commands/:search", (req, res) => {
+
+    if (!req.query.search){  
+      var command = client.commands.get(req.params.search)
+      renderTemplate(res, req, "command.ejs", { command });
+    } else {
+      res.redirect('/commands/' + req.query.search);
+    }
+
+    
+  });
+
   app.get("/staff", async (req, res) => {
     let baltop = await api.getAll()
     //baltop.sort((a, b) => b.data.bal - a.data.bal);
@@ -119,12 +141,20 @@ module.exports = async (client, args) => {
   });
   app.get("/user", async (req, res) => {
 
+    var user = await api.getUser('456062221710131210')
+    user.userviews = user.userviews + 1
+    await api.modUser('456062221710131210', user)
+
     let baltop = await api.getAll()
     baltop.sort((a, b) => b.data.bal - a.data.bal);
+
     var position = 0
-    renderTemplate(res, req, "user.ejs", { leader: baltop, pos: position }, { perms: Discord.Permissions });
+
+    var views = user.userviews
+    renderTemplate(res, req, "user.ejs", { visits: views, leader: baltop, pos: position }, { perms: Discord.Permissions });
   });
   app.get("/user/:ID", async (req, res) => {
+    
     var staffCheck = await api.getAll()
     const admins = [];
     Object.keys(staffCheck).forEach(function (key) {
@@ -135,14 +165,40 @@ module.exports = async (client, args) => {
     const guild = client.users.fetch(req.params.ID)
       .catch(() => { return res.redirect("/404"); })
     var storedSettings = await api.getUser(req.params.ID)
-      .catch(() => {
-        return res.redirect("/nouser");
-      })
 
-    renderTemplate(res, req, "settings.ejs", { items, admins, guild, profile: storedSettings, alert: null});
+    /* Users Visit Counter */
+    var user = await api.getUser(req.params.ID)
+    if (!user.profileViews) {
+      user.profileViews = 0
+      await api.modUser(req.params.ID, user)
+    }
+    user.profileViews = user.profileViews + 1
+    await api.modUser(req.params.ID, user)
+    var views = user.profileViews
+
+    var commandobj = commands.get("daily")
+		api.checkCool(req.params.ID, commandobj.props.name)
+		.then((cooldown) => {
+			if (cooldown.cooldown) {
+        let daily = api.convertMS(cooldown.msleft);
+        renderTemplate(res, req, "settings.ejs", { daily, items, admins, guild, api, profile: storedSettings, alert: null, visits: views });
+			} else {
+				try {
+          let daily = "CLAIM";
+          renderTemplate(res, req, "settings.ejs", { daily, items, admins, guild, api, profile: storedSettings, alert: null, visits: views });
+				} catch (e) {
+					console.log(e)
+				}
+			}
+		})
+		.catch((e) => {
+			console.log(e)
+		})
+
   });
 
   app.post("/user/:ID", async (req, res, addCD) => {
+
     var staffCheck = await api.getAll()
     const admins = [];
     Object.keys(staffCheck).forEach(function (key) {
@@ -151,19 +207,47 @@ module.exports = async (client, args) => {
       }
     })
     const guild = client.users.fetch(req.params.ID)
-      .catch(() => { return res.redirect("/404"); })
+      .catch(() => { return; })
     var storedSettings = await api.getUser(req.params.ID)
       .catch(() => {
-        return res.redirect("/nouser");
+        return;
       })
 
     await api.changeBal(req.params.ID, 5000).then(api.addCool(req.params.ID, 'daily', 30000))
 
-    renderTemplate(res, req, "settings.ejs", { admins, guild, profile: storedSettings, alert: null});
+    var user = await api.getUser(req.params.ID)
+    if (!user.profileViews) {
+      user.profileViews = 0
+      await api.modUser(req.params.ID, user)
+    }
+    user.profileViews = user.profileViews + 1
+    await api.modUser(req.params.ID, user)
+    var views = user.profileViews
+    renderTemplate(res, req, "settings.ejs", { admins, guild, profile: storedSettings, alert: null, visits: views });
   });
 
+  app.get("/user/:ID/daily", async (req, res, addCD) => {
+		var commandobj = commands.get("daily")
+		api.checkCool(req.params.ID, commandobj.props.name)
+		.then((cooldown) => {
+			if (cooldown.cooldown) {
+				res.redirect(config.websiteURL + "user/" + req.params.ID)
+			} else {
+				try {
+					const user = api.changeBal(req.params.ID, 5000)
+					res.redirect(config.websiteURL + "user/" + req.params.ID)
+					return api.addCool(req.params.ID, commandobj.props.name, commandobj.props.cooldown)
+				} catch (e) {
+					console.log(e)
+					res.status(200).json({ e });
+				}
+			}
+		})
+		.catch((e) => {
+			console.log(e)
+		})
+	});
   app.get("/staff/:ID/profile", checkAuth, async (req, res) => {
-
     var staffCheck = await api.getAll()
     const admins = [];
     Object.keys(staffCheck).forEach(function (key) {
@@ -171,7 +255,6 @@ module.exports = async (client, args) => {
         admins.push(staffCheck[key].data.id)
       }
     })
-
     const guild = client.users.fetch(req.params.ID)
       .catch(() => { return res.redirect("/404"); })
     var storedSettings = await api.getUser(req.params.ID)
@@ -217,7 +300,7 @@ module.exports = async (client, args) => {
     )
     .setTimestamp()
   
-    client.channels.cache.get(config.SupportServer.GuildChannel).send({ embeds: [exampleEmbed] });
+    client.channels.cache.get('891642479487647806').send({ embeds: [exampleEmbed] });
 
     renderTemplate(res, req, "adminedit.ejs", { admins, guild, profile: storedSettings, alert: "Your settings have been saved." });
   });

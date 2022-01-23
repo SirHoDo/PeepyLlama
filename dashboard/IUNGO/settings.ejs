@@ -42,7 +42,7 @@
 
     <meta content="<%= profile.name%>'s User Profile" property="og:title">
     <meta content="Balance: <%=formatter.format(profile.bal) %> Level: <%= profile.levels.level %>" property="og:description">
-    <meta content="https://iungobot.net/" property="og:url">
+    <meta content="https://peepy.info/" property="og:url">
     <meta content="http://iungobot.net/assets/images/logo/logo.png" property="og:image">
     <meta content="#5d369d" data-react-helmet="true" name="theme-color">
 
@@ -98,6 +98,11 @@
                                     </div>
                                     <div class="entry-content">
                                         <div class="feature-item">
+                                            <div class="feature-thumb">
+                                                <div class="thumb">
+                                                    <img src="/assets/images/profile/pro5.png" alt="Balance">
+                                                </div>
+                                            </div>
                                             <div class="feature-content">
                                                 <h4 style="color:rgb(19, 199, 3)"class="title">Balance</h4>
                                                 <p><%= formatter.format(profile.bal) %></p>
@@ -111,7 +116,11 @@
                                         } %>
 
                                         <div class="feature-item">
-                                            
+                                            <div class="feature-thumb">
+                                                <div class="thumb">
+                                                    <img src="/assets/images/profile/pro6.png" alt="Passive">
+                                                </div>
+                                            </div>
                                             <div class="feature-content">
                                                 <h4 style="color:rgb(196, 52, 209)"class="title">Passive Mode?</h4>
                                                 <p><%= passiveVal %></p>
@@ -120,6 +129,11 @@
 
                                         <% if (profile.staff) { %>
                                             <div style="background-image: url('/assets/css/img/feature-bg.png');" class="feature-item">
+                                                <div class="feature-thumb">
+                                                    <div class="thumb">
+                                                        <img src="/assets/images/profile/pro7.png" alt="Staff">
+                                                    </div>
+                                                </div>
                                                 <div  class="feature-content">
                                                     <h4 style="color:rgb(219, 243, 0)"class="title">Staff?</h4>
                                                     <p style="font-weight: bold; color:rgb(219, 243, 0)">Peepy Staff</p>
@@ -181,6 +195,32 @@
                         
                         <div class="col-lg-4 col-md-8 col-sm-10">
                             <aside class="sticky-menu">
+                                <% 
+                                console.log(daily)
+                                if (user && profile.id == user.id) {
+                                if (daily === "CLAIM") { %>
+                                <div class="widget widget-tags">
+                                    <h5 class="title">DAILY</h5>
+                                    <ul>
+                                        <li>
+                                            <a style="color: #000; background-color: rgb(219, 243, 0);" href="/user/<%= profile.id %>/daily"><%=daily%></a>
+                                        </li>
+                                    </ul>
+                                </div>  <% } else { %> 
+
+                                    <div class="widget widget-tags">
+                                        <h5 class="title">DAILY</h5>
+                                        <ul>
+                                            <li>
+                                                <a><%=daily%></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                <% }
+                                } else {}%>
+                                
+                                
                                 <div class="widget widget-tags">
                                     <h5 class="title">Trophies</h5>
                                     <ul>
