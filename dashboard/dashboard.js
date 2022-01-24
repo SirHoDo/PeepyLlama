@@ -240,9 +240,14 @@ module.exports = async (client, args) => {
 				res.redirect(config.websiteURL + "user/" + req.params.ID)
 			} else {
 				try {
-					const user = api.changeBal(req.params.ID, 5000)
-					res.redirect(config.websiteURL + "user/" + req.params.ID)
+          (async function(){
+          const user = await api.changeBal(req.params.ID, 5000)
+
+          res.redirect(config.websiteURL + "user/" + req.params.ID)
 					return api.addCool(req.params.ID, commandobj.props.name, commandobj.props.cooldown)
+          
+          })()
+
 				} catch (e) {
 					console.log(e)
 					res.status(200).json({ e });
