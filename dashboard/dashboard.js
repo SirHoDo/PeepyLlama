@@ -19,7 +19,7 @@ const items = require('../src/json/items.json')
 const trophy = require('../src/json/trophy.json')
 const api = require("../src/core/api")
 const app = express();
-const MemoryStore = require("memorystore")(session);
+const MongoStore = require('connect-mongo')(session);
 
 module.exports = async (client, args) => {
   const commands = client.commands
@@ -37,12 +37,19 @@ module.exports = async (client, args) => {
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(() => done(null, profile));
     }));
+
+
   app.use(session({
-    store: new MemoryStore({ checkPeriod: 86400000 }),
     secret: "#@%#&^$^$%@$^$&%#$%@#$%$^%&$%^#$%@#$%#E%#%@$FEErfgr3g#%GT%536c53cc6%5%tv%4y4hrgrggrgrgf4n",
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({
+      url: config.MongoDBURl,
+      ttl: 14 * 24 * 60 * 60,
+      autoRemove: 'native' 
+  })
   }));
+
   app.use(passport.initialize());
   app.use(passport.session());
   app.locals.domain = config.websiteURL.split("//")[1];
@@ -84,7 +91,6 @@ module.exports = async (client, args) => {
       const url = req.session.backURL;
       req.session.backURL = null;
       res.redirect(url);
-
     } else {
       res.redirect("/user/" + req.user.id);
     }
