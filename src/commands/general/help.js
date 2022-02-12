@@ -1,36 +1,98 @@
 const simpleCommand = require("../../core/simpleCommand");
 const Discord = require("discord.js")
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu } = require('discord.js');
 const config = require('../../config');
 
 
 var prefix = config.prefix
 module.exports = new simpleCommand(
         async(message, args, client, addCD) => {
+        
+            const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                .setCustomId('help')
+                .setPlaceholder('Choose Something')
+                .addOptions([
+                    {
+                    label: "Currency",
+                    value: 'currency',
+                    description: 'Desc',
+                    emoji: '💸'
+                    },
+                    {
+                    label: "Games",
+                    value: 'games',
+                    description: 'Desc',
+                    emoji: '🎲'
+                    },
+                    {
+                    label: "General",
+                    value: 'general',
+                    description: 'Desc',
+                    emoji: '🦙'
+                    }
+
+                ])
+            )
+
             if (!args[0]) {
                 var botIcon = client.user.displayAvatarURL();
-                var home = "Mohney Mohney, Currency games by the IUNGO dev team\n\n"
+                var home = ""
                 client.categories.forEach(category => {
-                    home += `**${category.name}**\n\`${prefix}help ${category.id}\`\n\n`
+                    home += `**${category.name}**\n> \`${prefix}help ${category.id}\`\n\n`
                 });
                 await addCD()
-                const linkRow = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setURL('https://peepy.info/commands/')
-                                .setLabel('All Commands')
-                                .setStyle('LINK')
-                        )
+
                 const embed = new Discord.MessageEmbed()
                     .setColor('#5d369d')
                     .setAuthor("Available Categories", botIcon)
                     .setDescription([
-                        (`**Prefix:** \`${prefix}\` (Custom Prefix coming soon!)`),
-                        (`**Type** \`${prefix}help [command]\` **for command specific information.**\n\n`),
+                        (`**Prefix:** \`${prefix}\``),
+                        (`**Type** \`${prefix}help [command]\` **for detailed info.**\n`),
+                        (`**ATTENTION** \`PeepyLlama\` **is open sourced. Check it out [HERE](https://github.com/SirHoDo/PeepyLlama) **\n\n`),
                         (home),
                     ].join('\n'));
+
+                const filter = (interaction) => 
+                interaction.isSelectMenu() && 
+                interaction.user.id === message.author.id;
+
+                const collector = message.channel.createMessageComponentCollector({ 
+                    filter, 
+                    max: "3"
+                });
+
+                collector.on('collect', async(collected) => {
+                    const term = collected.values[0]
+                    if (client.categories.has(term)) {
+                        var category = client.categories.get(term)
+                        var desc = `${(category.desc?category.desc:`Here are a list of the **${category.id}** commands!`)}\nView more details of a command by typing \`>help <command>\`\n\n`
+                   var arr = []
+                   category.commands.forEach(command => {
+                    if(command.props.hasOwnProperty("hidden")) {
+                        if(!command.props.hidden) arr[arr.length] = command.props.name
+                    } else {
+                        arr[arr.length] = command.props.name
+                    }    
+                   })
+                   desc= desc+`\`${arr.join("`, `")}\``
+                const embed = new Discord.MessageEmbed()
+                        .setColor('#5d369d')
+                        .setAuthor(category.name + " commands", botIcon)
+                        .setDescription([
+                            (`**Prefix:** \`${prefix}\``),
+                            (`**Type** \`${prefix}help [command]\` **for detailed info.**\n\n`),
+                            (desc),
+                        ].join('\n'));
+    
+    
+                message.channel.send({embeds: [embed], components: [row]})
+                
+               }
+                })
                     
-                message.channel.send({embeds: [embed], components: [linkRow]})
+                message.channel.send({embeds: [embed], components: [row]})
             } else {
                 var term = args.join(" ").toLowerCase().trim()
                 if (client.categories.has(term)) {
@@ -49,8 +111,8 @@ module.exports = new simpleCommand(
                     .setColor('#5d369d')
                     .setAuthor("Available Commands", botIcon)
                     .setDescription([
-                        (`**Prefix:** \`${prefix}\` (Custom Prefix coming soon!)`),
-                        (`**Type** \`${prefix}help [command]\` **for command specific information.**\n\n`),
+                        (`**Prefix:** \`${prefix}\``),
+                        (`**Type** \`${prefix}help [command]\` **for detailed info.**\n\n`),
                         (desc),
                     ].join('\n'));
 
@@ -94,9 +156,9 @@ module.exports = new simpleCommand(
     {
         name: "help",
         aliases: ["help", "commands", "command"],
-        cooldown: 0,
+        cooldown: 10000,
         cooldownMessage: "Glitch i think",
-        description: "Test",
+        description: "Used to view the entire commands Peepy has",
         perms:["SEND_MESSAGES"]   
     }
 )

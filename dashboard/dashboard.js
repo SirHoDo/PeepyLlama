@@ -245,7 +245,6 @@ module.exports = async (client, args) => {
 
           res.redirect(config.websiteURL + "user/" + req.params.ID)
 					return api.addCool(req.params.ID, commandobj.props.name, commandobj.props.cooldown)
-          
           })()
 
 				} catch (e) {
