@@ -1,6 +1,9 @@
 
 <div align="center">
 
+## PLEASE VISIT https://peepy.info FOR NEWS AND UPDATES
+## THIS PROJECT IS DEPRICATRED AND OUTDATED
+
 # Peepy Llama
 
 [![Website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https://iungo.info%2F)](https://iungo.info/)
